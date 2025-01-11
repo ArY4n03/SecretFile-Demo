@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://cu3j172eaw1ut"]
+
+[ext_resource type="Texture2D" uid="uid://cuuqf4pjsgel6" path="res://Sprites/Player/Platfrom.png" id="1_j2ei6"]
+[ext_resource type="Script" path="res://Scripts/platform.gd" id="1_rlxw0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyv37"]
+size = Vector2(48, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0qs87"]
+size = Vector2(48, 10)
+
+[node name="Platform" type="StaticBody2D"]
+scale = Vector2(3, 3)
+collision_layer = 32
+script = ExtResource("1_rlxw0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_j2ei6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jyv37")
+one_way_collision = true
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 32
+
+[node name="AreaCollision" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_0qs87")
+
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

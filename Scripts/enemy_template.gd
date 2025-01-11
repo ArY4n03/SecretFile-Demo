@@ -1,0 +1,83 @@
+extends CharacterBody2D
+
+const JUMP_VELOCITY = -400.0
+var dir = Vector2(1,0)
+var dead_anim = false
+@onready var player = find_parent("Main").get_node("Player")
+@onready var gun = $Gun
+@export var can_fly = false
+@export var stat : entity_stat
+@export var health = 100
+
+
+enum enemy_state{idle , active , dead}
+
+var state: enemy_state
+
+func _ready():
+	randomize_speed(250,390)
+	
+func randomize_speed(from_,to_):
+	randomize()
+	stat.speed = randi_range(from_,to_)
+
+func get_damaged(dmg):
+	health -= dmg
+	
+func _physics_process(delta: float) -> void:
+	if can_fly:
+		print(health)
+	handle_states()
+	
+	if state  != enemy_state.dead:
+		# Add the gravity
+		if not is_on_floor():
+			velocity += get_gravity() * delta
+			
+		if state == enemy_state.active:
+			handling_movement()
+			velocity.x = dir.x * stat.speed
+			if can_fly:
+				velocity.y = dir.y * stat.speed
+			if not dir.x: #only be true if dir=0
+				velocity.x = move_toward(velocity.x, 0, stat.speed)
+		
+			$RayCast2D.target_position.x = 50 * dir.x
+			if $RayCast2D.is_colliding(): #if there is something in the way enemy will jump
+				velocity.y = -250
+		
+		if health <= 0:
+			state = enemy_state.dead
+				
+		move_and_slide()
+	
+
+func handling_movement():
+	if state == enemy_state.active:
+		if player.global_position.x - 150 > global_position.x:
+			dir.x = 1
+		elif player.global_position.x + 150 < global_position.x:
+			dir.x = -1
+		else:
+			dir.x = 0
+		
+		if can_fly:
+			if player.global_position.y - 150 > global_position.y:
+				dir.y = 1
+			elif player.global_position.y + 150 < global_position.y:
+				dir.y = -1
+			else:
+				dir.y = 0
+
+func handle_states():
+	pass
+
+func dead():
+	if not dead_anim:
+		dead_anim = true
+		#var tween = get_tree().create_tween() # creating a tween
+		var scale_tween = get_tree().create_tween()
+		
+		scale_tween.tween_property(self,"scale",Vector2.ZERO,0.2)
+		scale_tween.tween_callback(queue_free)
+		

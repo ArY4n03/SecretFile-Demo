@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1evc1hw78yt1"]
+
+[ext_resource type="PackedScene" uid="uid://ba6ml8l2i4jar" path="res://Scenes/Tilemap/tiles.tscn" id="1_1v1ry"]
+[ext_resource type="PackedScene" uid="uid://ceio2k4jugjjp" path="res://Scenes/Player/player.tscn" id="2_d2omf"]
+
+[node name="Level" type="Node2D"]
+
+[node name="TileMapLayer" parent="." instance=ExtResource("1_1v1ry")]
+
+[node name="Platform Container" type="Node" parent="."]
+
+[node name="Enemy Container" type="Node" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("2_d2omf")]

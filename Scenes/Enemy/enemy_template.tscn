@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://hcmhj7fe2df3"]
+
+[ext_resource type="Script" path="res://Scripts/enemy_template.gd" id="1_nfrjr"]
+[ext_resource type="Resource" uid="uid://bxm8b7m5sicvu" path="res://Resources/enemy_stat.tres" id="2_g8dog"]
+
+[node name="EnemyTemplate" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_nfrjr")
+stat = ExtResource("2_g8dog")
+
+[node name="Sprite body" type="Sprite2D" parent="."]
+
+[node name="Sprite legs" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+collision_mask = 4

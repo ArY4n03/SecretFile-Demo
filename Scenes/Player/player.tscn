@@ -1,0 +1,143 @@
+[gd_scene load_steps=15 format=3 uid="uid://ceio2k4jugjjp"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_3cdcp"]
+[ext_resource type="Resource" uid="uid://bb366crtiw4bg" path="res://Resources/new_resource.tres" id="2_arjrq"]
+[ext_resource type="Texture2D" uid="uid://bewc3mhs84q61" path="res://Sprites/Player/player body (idle).png" id="2_mmqaw"]
+[ext_resource type="Texture2D" uid="uid://blygel6ersruk" path="res://Sprites/Gun/gun (player).png" id="3_15ckv"]
+[ext_resource type="Texture2D" uid="uid://dod3rxuwwr7ad" path="res://Sprites/Player/player  legs (idle).png" id="3_jca28"]
+[ext_resource type="Texture2D" uid="uid://dl3bs6uxr6ohl" path="res://Sprites/Player/player  legs (run 1).png" id="5_4admu"]
+[ext_resource type="Texture2D" uid="uid://cgnlfuj7bs4q8" path="res://Sprites/Player/player  legs (run 2).png" id="6_4lofp"]
+[ext_resource type="PackedScene" uid="uid://bidm71623dlfa" path="res://Scenes/Gun/gun.tscn" id="7_isx4b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4od1"]
+size = Vector2(42, 96)
+
+[sub_resource type="Animation" id="Animation_mk21c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("player body:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_mmqaw")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("player legs:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_jca28")]
+}
+
+[sub_resource type="Animation" id="Animation_g8ksj"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("player body:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_mmqaw")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("player legs:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_jca28")]
+}
+
+[sub_resource type="Animation" id="Animation_fvbpg"]
+resource_name = "jump"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("player legs:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_jca28")]
+}
+
+[sub_resource type="Animation" id="Animation_d4tje"]
+resource_name = "run"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("player legs:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("3_jca28"), ExtResource("5_4admu"), ExtResource("6_4lofp"), ExtResource("5_4admu")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x2c1d"]
+_data = {
+"RESET": SubResource("Animation_mk21c"),
+"idle": SubResource("Animation_g8ksj"),
+"jump": SubResource("Animation_fvbpg"),
+"run": SubResource("Animation_d4tje")
+}
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(322, 186)
+collision_mask = 36
+script = ExtResource("1_3cdcp")
+stat = ExtResource("2_arjrq")
+
+[node name="player body" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 2
+scale = Vector2(6, 6)
+texture = ExtResource("2_mmqaw")
+
+[node name="player legs" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 2
+scale = Vector2(6, 6)
+texture = ExtResource("3_jca28")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-3, 0)
+shape = SubResource("RectangleShape2D_g4od1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_x2c1d")
+}
+autoplay = "idle"
+speed_scale = 1.88
+
+[node name="Gun" parent="." instance=ExtResource("7_isx4b")]
+gun_sprite = ExtResource("3_15ckv")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.7, 0.7)
+position_smoothing_enabled = true
