@@ -13,8 +13,10 @@ var dead_anim = false
 enum enemy_state{idle , active , dead}
 
 var state: enemy_state
+@onready var healthbar =$"Health bar"
 
 func _ready():
+	healthbar.value = health
 	randomize_speed(250,390)
 	
 func randomize_speed(from_,to_):
@@ -22,11 +24,15 @@ func randomize_speed(from_,to_):
 	stat.speed = randi_range(from_,to_)
 
 func get_damaged(dmg):
+	healthbar.visible = true
 	health -= dmg
+	#updating enemy health
+	var tween = get_tree().create_tween()
+	tween.tween_property(healthbar,"value",health,0.3)
+	#healthbar.visible = false
+	$TimerToHideHealthBar.start()
 	
 func _physics_process(delta: float) -> void:
-	if can_fly:
-		print(health)
 	handle_states()
 	
 	if state  != enemy_state.dead:
@@ -75,9 +81,12 @@ func handle_states():
 func dead():
 	if not dead_anim:
 		dead_anim = true
-		#var tween = get_tree().create_tween() # creating a tween
 		var scale_tween = get_tree().create_tween()
 		
 		scale_tween.tween_property(self,"scale",Vector2.ZERO,0.2)
 		scale_tween.tween_callback(queue_free)
 		
+
+
+func _on_timer_to_hide_health_bar_timeout() -> void:
+	healthbar.visible = false

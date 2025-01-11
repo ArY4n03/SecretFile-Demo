@@ -8,11 +8,11 @@ var direction = Vector2.ZERO
 var can_shoot = true
 var jump_count = 0
 var gravity = 790
-var jump_force = -700
+var jump_force = -600
 @export var stat : entity_stat
 @export var health = 100
 @onready var gun = get_node("Gun")
-
+@onready var healthbar = $CanvasLayer/HealthBar
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
@@ -74,4 +74,9 @@ func _on_cooldown_timeout() -> void:
 	can_shoot = true
 
 func get_damaged(dmg):
+	healthbar.visible = true
 	health -= dmg
+	#updating enemy health
+	var tween = get_tree().create_tween()
+	tween.tween_property(healthbar,"value",health,0.3)
+	

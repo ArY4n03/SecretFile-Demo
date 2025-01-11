@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ceio2k4jugjjp"]
+[gd_scene load_steps=17 format=3 uid="uid://ceio2k4jugjjp"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_3cdcp"]
 [ext_resource type="Resource" uid="uid://bb366crtiw4bg" path="res://Resources/new_resource.tres" id="2_arjrq"]
@@ -106,6 +106,22 @@ _data = {
 "run": SubResource("Animation_d4tje")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t2yy7"]
+bg_color = Color(0.176419, 0.176419, 0.176419, 1)
+skew = Vector2(1, 0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k2hop"]
+bg_color = Color(0, 0.717647, 0, 1)
+skew = Vector2(1, 0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(322, 186)
 collision_mask = 36
@@ -141,3 +157,18 @@ gun_sprite = ExtResource("3_15ckv")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.7, 0.7)
 position_smoothing_enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer"]
+offset_left = 30.0
+offset_top = 41.0
+offset_right = 182.0
+offset_bottom = 68.0
+size_flags_horizontal = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_t2yy7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_k2hop")
+step = 1.0
+value = 100.0
+rounded = true
+show_percentage = false
