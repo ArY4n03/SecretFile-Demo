@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://ceio2k4jugjjp"]
+[gd_scene load_steps=18 format=3 uid="uid://ceio2k4jugjjp"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_3cdcp"]
 [ext_resource type="Resource" uid="uid://bb366crtiw4bg" path="res://Resources/new_resource.tres" id="2_arjrq"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dl3bs6uxr6ohl" path="res://Sprites/Player/player  legs (run 1).png" id="5_4admu"]
 [ext_resource type="Texture2D" uid="uid://cgnlfuj7bs4q8" path="res://Sprites/Player/player  legs (run 2).png" id="6_4lofp"]
 [ext_resource type="PackedScene" uid="uid://bidm71623dlfa" path="res://Scenes/Gun/gun.tscn" id="7_isx4b"]
+[ext_resource type="Texture2D" uid="uid://b45hftbj6y54l" path="res://Sprites/BG/bg.png" id="9_swibl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4od1"]
 size = Vector2(42, 96)
@@ -172,3 +173,13 @@ step = 1.0
 value = 100.0
 rounded = true
 show_percentage = false
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(322, 186)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground"]
+position = Vector2(199, 189)
+scale = Vector2(2.61, 2.06667)
+texture = ExtResource("9_swibl")
