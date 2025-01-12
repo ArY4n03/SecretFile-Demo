@@ -3,6 +3,7 @@ extends CharacterBody2D
 const JUMP_VELOCITY = -400.0
 var dir = Vector2(1,0)
 var dead_anim = false
+var hit_effect_tween
 @onready var player = find_parent("Main").get_node("Player")
 @onready var gun = $Gun
 @export var can_fly = false
@@ -17,13 +18,17 @@ var state: enemy_state
 
 func _ready():
 	healthbar.value = health
-	randomize_speed(250,390)
+	randomize_speed(250,320)
 	
 func randomize_speed(from_,to_):
 	randomize()
 	stat.speed = randi_range(from_,to_)
 
 func get_damaged(dmg):
+	if not can_fly:
+		velocity.y -= 200
+	
+	get_damaged_effect()
 	healthbar.visible = true
 	health -= dmg
 	#updating enemy health
@@ -31,6 +36,14 @@ func get_damaged(dmg):
 	tween.tween_property(healthbar,"value",health,0.3)
 	#healthbar.visible = false
 	$TimerToHideHealthBar.start()
+
+func get_damaged_effect():
+	if hit_effect_tween:
+		hit_effect_tween.kill()
+		
+	hit_effect_tween = get_tree().create_tween()
+	hit_effect_tween.tween_property(self,"modulate",Color(1,0,0,1),0.2)
+	hit_effect_tween.tween_property(self,"modulate",Color(1,1,1,1),0.2)
 	
 func _physics_process(delta: float) -> void:
 	handle_states()
