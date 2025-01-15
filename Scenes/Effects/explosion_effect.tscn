@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://5vbdbx3frtqa"]
+
+[ext_resource type="Texture2D" uid="uid://4nhrctvxhv7r" path="res://Sprites/Other/explosion.png" id="1_7l0tx"]
+[ext_resource type="Script" path="res://Scripts/explosion_effect.gd" id="2_t8j5n"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jqwrk"]
+
+[sub_resource type="Curve" id="Curve_nxgck"]
+_data = [Vector2(0.0309278, 0.520862), 0.0, 0.0, 0, 0, Vector2(0.938144, 0.023644), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Explosion effect" type="CPUParticles2D"]
+material = SubResource("CanvasItemMaterial_jqwrk")
+emitting = false
+amount = 18
+one_shot = true
+speed_scale = 1.41
+explosiveness = 1.0
+texture = ExtResource("1_7l0tx")
+emission_shape = 1
+emission_sphere_radius = 86.05
+spread = 180.0
+gravity = Vector2(0, 200)
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+scale_amount_curve = SubResource("Curve_nxgck")
+color = Color(1, 0, 0, 1)
+script = ExtResource("2_t8j5n")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

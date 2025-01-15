@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b2vxhqc5godgf" path="res://Sprites/Other/next area door.png" id="1_oo0e4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b08bs"]
-size = Vector2(20, 33)
+size = Vector2(31.8333, 32.8333)
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_tx54u"]
 color = Color(0.408463, 0.470984, 0.411116, 1)
@@ -22,7 +22,7 @@ script = ExtResource("1_a3djm")
 texture = ExtResource("1_oo0e4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -0.5)
+position = Vector2(0.083333, -0.583333)
 shape = SubResource("RectangleShape2D_b08bs")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]

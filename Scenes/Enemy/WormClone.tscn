@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://gmtf6oqjw8li"]
+
+[ext_resource type="PackedScene" uid="uid://8m05x63andlr" path="res://Scenes/Enemy/Malware(Gun).tscn" id="1_grfcj"]
+[ext_resource type="Script" path="res://Scripts/worm clone.gd" id="2_asbgq"]
+[ext_resource type="Texture2D" uid="uid://c6uoonvg7sox4" path="res://Sprites/Player/worm.png" id="3_kofu8"]
+[ext_resource type="Texture2D" uid="uid://bt5fkhfif0osi" path="res://Sprites/Player/worm leg.png" id="4_emjn4"]
+
+[node name="EnemyTemplate" instance=ExtResource("1_grfcj")]
+script = ExtResource("2_asbgq")
+stat = null
+
+[node name="Sprite body" parent="." index="1"]
+texture = ExtResource("3_kofu8")
+
+[node name="Sprite legs" parent="." index="2"]
+texture = ExtResource("4_emjn4")

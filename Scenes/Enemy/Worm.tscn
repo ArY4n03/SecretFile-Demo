@@ -1,0 +1,53 @@
+[gd_scene load_steps=10 format=3 uid="uid://bggryksemfyqs"]
+
+[ext_resource type="PackedScene" uid="uid://hcmhj7fe2df3" path="res://Scenes/Enemy/enemy_template.tscn" id="1_utt3a"]
+[ext_resource type="Texture2D" uid="uid://c6uoonvg7sox4" path="res://Sprites/Player/worm.png" id="2_2xssl"]
+[ext_resource type="Script" path="res://Scripts/worm.gd" id="2_kpnpi"]
+[ext_resource type="Resource" uid="uid://dhf6bijl3srg3" path="res://Resources/worm_clone_stat.tres" id="3_7yxtg"]
+[ext_resource type="Texture2D" uid="uid://bt5fkhfif0osi" path="res://Sprites/Player/worm leg.png" id="3_22gec"]
+[ext_resource type="Texture2D" uid="uid://dq7tm04jdj2j5" path="res://Sprites/Player/worm's vehicle.png" id="4_p5w36"]
+[ext_resource type="PackedScene" uid="uid://bidm71623dlfa" path="res://Scenes/Gun/gun.tscn" id="7_2jjym"]
+[ext_resource type="Texture2D" uid="uid://blygel6ersruk" path="res://Sprites/Gun/gun (player).png" id="8_slq8d"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cw2k6"]
+radius = 113.071
+
+[node name="EnemyTemplate" instance=ExtResource("1_utt3a")]
+script = ExtResource("2_kpnpi")
+can_fly = true
+stat = ExtResource("3_7yxtg")
+health = 200
+
+[node name="Health bar" parent="." index="0"]
+offset_top = -76.0
+offset_bottom = -64.0
+
+[node name="Sprite body" parent="." index="1"]
+scale = Vector2(6, 6)
+texture = ExtResource("2_2xssl")
+
+[node name="Sprite legs" parent="." index="2"]
+scale = Vector2(6, 6)
+texture = ExtResource("3_22gec")
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="3"]
+position = Vector2(-2, 84)
+scale = Vector2(6, 6)
+texture = ExtResource("4_p5w36")
+
+[node name="CollisionShape2D" parent="." index="4"]
+position = Vector2(-2, 61)
+shape = SubResource("CircleShape2D_cw2k6")
+
+[node name="RayCast2D" parent="." index="5"]
+enabled = false
+
+[node name="Gun" parent="." index="7" instance=ExtResource("7_2jjym")]
+gun_sprite = ExtResource("8_slq8d")
+is_playergun = false
+
+[node name="Timer" type="Timer" parent="." index="8"]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

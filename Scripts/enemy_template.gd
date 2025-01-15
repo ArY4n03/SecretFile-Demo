@@ -5,6 +5,7 @@ var dir = Vector2(1,0)
 var dead_anim = false
 var hit_effect_tween
 @onready var player = find_parent("Main").get_node("Player")
+@onready var explostion_effect = preload("res://Scenes/Effects/explosion_effect.tscn")
 @onready var gun = $Gun
 @export var can_fly = false
 @export var stat : entity_stat
@@ -34,7 +35,6 @@ func get_damaged(dmg):
 	#updating enemy health
 	var tween = get_tree().create_tween()
 	tween.tween_property(healthbar,"value",health,0.3)
-	#healthbar.visible = false
 	$TimerToHideHealthBar.start()
 
 func get_damaged_effect():
@@ -50,7 +50,7 @@ func _physics_process(delta: float) -> void:
 	
 	if state  != enemy_state.dead:
 		# Add the gravity
-		if not is_on_floor():
+		if not is_on_floor() and not can_fly:
 			velocity += get_gravity() * delta
 			
 		if state == enemy_state.active:
@@ -94,6 +94,9 @@ func handle_states():
 func dead():
 	if not dead_anim:
 		dead_anim = true
+		var explostion_effect_ = explostion_effect.instantiate()
+		get_parent().add_child(explostion_effect_)
+		explostion_effect_.global_position = global_position
 		var scale_tween = get_tree().create_tween()
 		
 		scale_tween.tween_property(self,"scale",Vector2.ZERO,0.2)
