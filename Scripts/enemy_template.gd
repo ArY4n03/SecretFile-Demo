@@ -4,27 +4,25 @@ const JUMP_VELOCITY = -400.0
 var dir = Vector2(1,0)
 var dead_anim = false
 var hit_effect_tween
+var is_boss = false
 @onready var player = find_parent("Main").get_node("Player")
 @onready var explostion_effect = preload("res://Scenes/Effects/explosion_effect.tscn")
 @onready var gun = $Gun
 @export var can_fly = false
 @export var stat : entity_stat
 @export var health = 100
-
-
+var speed = 250
 enum enemy_state{idle , active , dead}
-
 var state: enemy_state
 @onready var healthbar =$"Health bar"
 
 func _ready():
 	healthbar.value = health
-	randomize_speed(250,320)
+	randomize_speed(250)
 	
-func randomize_speed(from_,to_):
+func randomize_speed(from_):
 	randomize()
-	stat.speed = randi_range(from_,to_)
-
+	speed = randi_range(from_,stat.speed)
 func get_damaged(dmg):
 	if not can_fly:
 		velocity.y -= 200
@@ -55,11 +53,11 @@ func _physics_process(delta: float) -> void:
 			
 		if state == enemy_state.active:
 			handling_movement()
-			velocity.x = dir.x * stat.speed
+			velocity.x = dir.x * speed
 			if can_fly:
-				velocity.y = dir.y * stat.speed
+				velocity.y = dir.y * speed
 			if not dir.x: #only be true if dir=0
-				velocity.x = move_toward(velocity.x, 0, stat.speed)
+				velocity.x = move_toward(velocity.x, 0, speed)
 		
 			$RayCast2D.target_position.x = 50 * dir.x
 			if $RayCast2D.is_colliding(): #if there is something in the way enemy will jump
@@ -80,7 +78,7 @@ func handling_movement():
 		else:
 			dir.x = 0
 		
-		if can_fly:
+		if can_fly and not is_boss:
 			if player.global_position.y - 150 > global_position.y:
 				dir.y = 1
 			elif player.global_position.y + 150 < global_position.y:

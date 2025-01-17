@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 const JUMP_VELOCITY = -400.0
-enum states{idle,run,jump,shoot}
+enum states{idle,run,jump,shoot,dead}
 
 var state: states
 var direction = Vector2.ZERO
@@ -9,12 +9,15 @@ var can_shoot = true
 var jump_count = 0
 var gravity = 790
 var jump_force = -600
+var health = AutoLoad.playerhealth
 @export var stat : entity_stat
-@export var health = 100
 @onready var gun = get_node("Gun")
 @onready var healthbar = $CanvasLayer/HealthBar
+
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
+	
+
 	if not is_on_floor():
 		velocity.y += gravity * delta
 		
@@ -25,6 +28,8 @@ func _physics_process(delta: float) -> void:
 	velocity.x = direction.x * stat.speed if direction else move_toward(velocity.x, 0, stat.speed)
 	state = states.run if direction else states.idle
 	
+	if health < 0:
+		state = states.dead
 	state_manager()
 	move_and_slide()
 
@@ -68,13 +73,17 @@ func state_manager():
 				$AnimationPlayer.play("jump")
 		states.jump:
 			$AnimationPlayer.play("jump")
+		
+		states.dead:
+			healthbar.hide()
+			find_parent("Main")._game_over()
+			
 
 
 func _on_cooldown_timeout() -> void:
 	can_shoot = true
 
 func get_damaged(dmg):
-	healthbar.visible = true
 	health -= dmg
 	#updating enemy health
 	var tween = get_tree().create_tween()

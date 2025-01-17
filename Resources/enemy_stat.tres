@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_0obgm")
-atk = 14
+atk = 5
 speed = 390
 char_type = 1

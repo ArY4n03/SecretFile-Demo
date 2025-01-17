@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://xmga4vnky1yv"]
+
+[ext_resource type="Texture2D" uid="uid://b45hftbj6y54l" path="res://Sprites/BG/bg.png" id="1_kgfw0"]
+[ext_resource type="Script" path="res://Scripts/game_over_screen.gd" id="1_s1g4j"]
+[ext_resource type="FontFile" uid="uid://lrrytrqyqne" path="res://Fonts/VT323-Regular.ttf" id="2_cc81g"]
+
+[sub_resource type="FontVariation" id="FontVariation_t6pab"]
+base_font = ExtResource("2_cc81g")
+
+[node name="GameOverScreen" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_s1g4j")
+
+[node name="Control" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+offset_left = -125.0
+offset_top = -119.0
+offset_right = 1270.0
+offset_bottom = 736.0
+texture = ExtResource("1_kgfw0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 480.0
+offset_top = 261.0
+offset_right = 632.0
+offset_bottom = 347.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Retry" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_fonts/font = SubResource("FontVariation_t6pab")
+theme_override_font_sizes/font_size = 30
+text = "RETRY"
+
+[node name="MainMenu" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_fonts/font = SubResource("FontVariation_t6pab")
+theme_override_font_sizes/font_size = 30
+text = "Title Screen"
+
+[connection signal="button_up" from="Control/VBoxContainer/Retry" to="." method="_on_retry_button_up"]
+[connection signal="button_up" from="Control/VBoxContainer/MainMenu" to="." method="_on_main_menu_button_up"]

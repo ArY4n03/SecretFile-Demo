@@ -1,8 +1,8 @@
 [gd_scene load_steps=18 format=3 uid="uid://ceio2k4jugjjp"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_3cdcp"]
-[ext_resource type="Resource" uid="uid://bb366crtiw4bg" path="res://Resources/new_resource.tres" id="2_arjrq"]
 [ext_resource type="Texture2D" uid="uid://bewc3mhs84q61" path="res://Sprites/Player/player body (idle).png" id="2_mmqaw"]
+[ext_resource type="Resource" uid="uid://b6i2muxop330k" path="res://Resources/player_stat.tres" id="2_w7j66"]
 [ext_resource type="Texture2D" uid="uid://blygel6ersruk" path="res://Sprites/Gun/gun (player).png" id="3_15ckv"]
 [ext_resource type="Texture2D" uid="uid://dod3rxuwwr7ad" path="res://Sprites/Player/player  legs (idle).png" id="3_jca28"]
 [ext_resource type="Texture2D" uid="uid://dl3bs6uxr6ohl" path="res://Sprites/Player/player  legs (run 1).png" id="5_4admu"]
@@ -127,7 +127,7 @@ corner_radius_bottom_left = 10
 position = Vector2(322, 186)
 collision_mask = 36
 script = ExtResource("1_3cdcp")
-stat = ExtResource("2_arjrq")
+stat = ExtResource("2_w7j66")
 
 [node name="player body" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -169,10 +169,9 @@ offset_bottom = 68.0
 size_flags_horizontal = 0
 theme_override_styles/background = SubResource("StyleBoxFlat_t2yy7")
 theme_override_styles/fill = SubResource("StyleBoxFlat_k2hop")
+max_value = 200.0
 step = 1.0
-value = 100.0
-rounded = true
-show_percentage = false
+value = 200.0
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 

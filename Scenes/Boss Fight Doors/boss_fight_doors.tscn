@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1cdlu13k1efr"]
+
+[ext_resource type="Texture2D" uid="uid://na71outf7y35" path="res://Sprites/Tiles/tileset.png" id="1_byadd"]
+[ext_resource type="Script" path="res://Scripts/boss_fight_doors.gd" id="1_ify2k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_467t6"]
+size = Vector2(63, 242.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5uaop"]
+radius = 125.22
+
+[node name="BossFightDoors" type="Node2D"]
+script = ExtResource("1_ify2k")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 4
+
+[node name="TextureRect" type="TextureRect" parent="StaticBody2D"]
+offset_right = 48.0
+offset_bottom = 120.0
+texture = ExtResource("1_byadd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(24, 60)
+shape = SubResource("RectangleShape2D_467t6")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(640, 0)
+collision_layer = 4
+
+[node name="TextureRect" type="TextureRect" parent="StaticBody2D2"]
+offset_right = 48.0
+offset_bottom = 120.0
+texture = ExtResource("1_byadd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(24, 62)
+shape = SubResource("RectangleShape2D_467t6")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(360, 144)
+shape = SubResource("CircleShape2D_5uaop")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

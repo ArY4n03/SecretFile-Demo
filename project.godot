@@ -14,6 +14,11 @@ config/name="Secret Files"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameOverScreen="*res://Scenes/UI/game_over_screen.tscn"
+AutoLoad="*res://Scripts/AutoLoad.gd"
+
 [display]
 
 window/stretch/mode="viewport"

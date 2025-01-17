@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="entity_stat" load_steps=2 format=3 uid="uid://bb366crtiw4bg"]
-
-[ext_resource type="Script" path="res://Scripts/stats.gd" id="1_5rw2p"]
-
-[resource]
-script = ExtResource("1_5rw2p")
-atk = 8
-speed = 300
-char_type = 0
