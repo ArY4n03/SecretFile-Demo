@@ -2,6 +2,7 @@ extends "res://Scripts/malware(gun).gd"
 
 
 func _ready():
+	health = 50
 	state = enemy_state.active
 	gun.target = find_parent("Main").get_node("Player")
 	randomize_speed(250)

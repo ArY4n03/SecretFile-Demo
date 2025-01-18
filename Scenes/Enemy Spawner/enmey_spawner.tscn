@@ -6,3 +6,13 @@
 script = ExtResource("1_u4mls")
 
 [node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(0, -500)
+
+[node name="Marker2D2" type="Marker2D" parent="."]
+position = Vector2(500, 1300)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -24,7 +24,7 @@ func shoot():
 		bullet.scale = Vector2(2,2)
 		
 		bullet.start($GunSprite/Marker2D.global_position,Vector2(1,0).rotated($GunSprite.global_rotation))
-		get_parent().get_parent().add_child((bullet))
+		find_parent("Main").get_node("Bullet Container").add_child((bullet))
 		$Cooldown.start()
 
 

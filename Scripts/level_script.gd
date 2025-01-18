@@ -13,3 +13,11 @@ func _game_over():
 	AutoLoad.playerhealth = AutoLoad.max_playerhealth
 	GameOverScreen.start()
 	get_tree().paused = true
+
+func boss_fight_finished():
+	get_node("BossFightDoors").update_door_state(false)
+	
+	if get_node("Enemy Container").get_child_count() > 0:
+		for child in get_node("Enemy Container").get_children():
+			if child.has_method("dead"):
+				child.dead()

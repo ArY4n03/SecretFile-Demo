@@ -8,21 +8,26 @@ var is_boss = false
 @onready var player = find_parent("Main").get_node("Player")
 @onready var explostion_effect = preload("res://Scenes/Effects/explosion_effect.tscn")
 @onready var gun = $Gun
+@onready var healthbar = $"Health bar"
 @export var can_fly = false
 @export var stat : entity_stat
 @export var health = 100
 var speed = 250
 enum enemy_state{idle , active , dead}
 var state: enemy_state
-@onready var healthbar =$"Health bar"
+
 
 func _ready():
-	healthbar.value = health
 	randomize_speed(250)
 	
 func randomize_speed(from_):
 	randomize()
 	speed = randi_range(from_,stat.speed)
+
+func set_healthbarValues():
+	healthbar.max_value = health
+	healthbar.value = health
+	
 func get_damaged(dmg):
 	if not can_fly:
 		velocity.y -= 200

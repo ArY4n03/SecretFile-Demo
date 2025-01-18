@@ -4,6 +4,7 @@ extends Node2D
 @onready var door1 =  $StaticBody2D
 @onready var door2 =  $StaticBody2D2
 var fight_started = false
+
 func _ready():
 	update_door_state(false)
 	
@@ -17,4 +18,6 @@ func update_door_state(state):
 	
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if not fight_started:
+		$AnimationPlayer.play('warning')
 		call_deferred("update_door_state",true)
+		find_parent("Main").get_node("Enemy Container").get_node("EnemyTemplate").active()

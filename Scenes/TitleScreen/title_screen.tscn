@@ -1,0 +1,139 @@
+[gd_scene load_steps=9 format=3 uid="uid://5oqwuyy8ti4"]
+
+[ext_resource type="Texture2D" uid="uid://b45hftbj6y54l" path="res://Sprites/BG/bg.png" id="1_0fo87"]
+[ext_resource type="Script" path="res://Scripts/title_screen.gd" id="1_vamar"]
+[ext_resource type="FontFile" uid="uid://lrrytrqyqne" path="res://Fonts/VT323-Regular.ttf" id="2_5vvnd"]
+[ext_resource type="Texture2D" uid="uid://y57aayd6njok" path="res://Sprites/Other/computer.png" id="2_qctfi"]
+
+[sub_resource type="FontVariation" id="FontVariation_u60hj"]
+base_font = ExtResource("2_5vvnd")
+
+[sub_resource type="Animation" id="Animation_qeau2"]
+resource_name = "transition"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"transition_to_level1"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_gl4pc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_du00y"]
+_data = {
+"RESET": SubResource("Animation_gl4pc"),
+"transition": SubResource("Animation_qeau2")
+}
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vamar")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -152.0
+offset_top = -80.0
+offset_right = 1448.0
+offset_bottom = 776.0
+texture = ExtResource("1_0fo87")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(576, 424)
+texture = ExtResource("2_qctfi")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = -40.0
+offset_right = 34.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Start" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.219608, 0.572549, 0.854902, 1)
+theme_override_fonts/font = SubResource("FontVariation_u60hj")
+theme_override_font_sizes/font_size = 30
+text = "START"
+flat = true
+
+[node name="Exit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.219608, 0.572549, 0.854902, 1)
+theme_override_fonts/font = SubResource("FontVariation_u60hj")
+theme_override_font_sizes/font_size = 30
+text = "Exit
+"
+flat = true
+
+[node name="About" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -408.0
+offset_top = -232.0
+offset_right = -340.0
+offset_bottom = -194.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0.0807701, 0.999999, 1)
+theme_override_fonts/font = SubResource("FontVariation_u60hj")
+theme_override_font_sizes/font_size = 30
+text = "About"
+flat = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_du00y")
+}
+
+[connection signal="button_up" from="VBoxContainer/Start" to="." method="_on_start_button_up"]
+[connection signal="button_up" from="VBoxContainer/Exit" to="." method="_on_exit_button_up"]

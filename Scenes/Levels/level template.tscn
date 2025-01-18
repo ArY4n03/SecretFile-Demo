@@ -70,3 +70,5 @@ script = ExtResource("1_ygw6h")
 libraries = {
 "": SubResource("AnimationLibrary_jwgyi")
 }
+
+[node name="Bullet Container" type="Node" parent="."]

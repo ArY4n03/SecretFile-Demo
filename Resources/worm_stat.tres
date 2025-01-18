@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="entity_stat" load_steps=2 format=3 uid="uid://b0ft30kmpmngc"]
+
+[ext_resource type="Script" path="res://Scripts/stats.gd" id="1_j4rf0"]
+
+[resource]
+script = ExtResource("1_j4rf0")
+atk = 7
+speed = 350
+char_type = 1
